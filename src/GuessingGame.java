@@ -9,37 +9,48 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+//zmienne powinny być private bo nie chcemy by spoza klasy coś mogło na nie wpływać - jak do konta bankowego ma dostep tylko jego właściciel
 public class GuessingGame extends JFrame {
 	private JTextField txtGuess;
 	private JLabel lblOutput;
 	private int theNumber;
 
+	// 1. pobiera z pola tekstowego wartość,przerabia txt na int sprawdza czy odpowiada randomowej wartości  do zgadnięcia
+	// tu program może się wywalić wiec jest try  -co srawdzamy catch - działanie gdy się wywali,fachowo -wystąpi wyjątek,
+	//finally - działanie gdy jest ok
+	
+	//2. metody są public bo chcemy by były dostępne tak jak funkcja wpłacania pieniędzy na konto jst dostepna publicznie
+	
 	public void checkGuess() {
-		String guessText = txtGuess.getText();
-		String message = "";
+		String guessText = txtGuess.getText();  //zawartość pola tekstowego staje sie zmienna typu string
+		String message = "";    //iniciowanie komunikatu - konsolowa wersja- na razie bez zawartości
 		try {		
-			int guess = Integer.parseInt(guessText);
+			int guess = Integer.parseInt(guessText);  // przerobienie tekstu na inta
 
-			if (guess < theNumber)
+			if (guess < theNumber)    //
 				message = guess + " is too low. Try again";
 			else if (guess > theNumber)
-				message = guess + " is too high. Try again";
+				message = guess + " is too high. Try again";  
+			
+		// komunikaty, które się wyświetlają w zaleznosci czy wpisana wart jest za niska za wysoka czy ok
+			//guess to int powstały ze stringa guessText wyjętego z pola tekstowego txtGuess
 			else
-			{message = guess + " is correct. You win! Let's play again!";
-			newGame();}}
+			{message = guess + " is correct. You win! Let's play again!"; //tekst o wygranej
+			newGame();}}  //metoda -ponieważ po wygranej chemy zagrać raz jeszcze
 		catch (Exception e)
 		{message = "Enter the whole number between 1 and 100";}
 		finally{
-			lblOutput.setText(message);
-			txtGuess.requestFocus();
-			txtGuess.selectAll();
+			lblOutput.setText(message);  //message to zmienna "konsolowa" której wartośc chcemy pokazać w etykiecie w oknie
+			txtGuess.requestFocus();   //dzięki temu kursor znajduje sie znowu w polu tekstowym 
+			txtGuess.selectAll();   // zaznacza cały tekst w olu tekstowym co ułatwia korzystanie z gry - nie trzeba mozolnie kasować
 		}
 	}
-	public void newGame() {
+	public void newGame() { //rozpoczecie gry wylosowanie liczby
 		theNumber = (int) (Math.random() * 100 + 1);
 	}
 
-	public GuessingGame() {
+	public GuessingGame() // to w większości genruje sie samo po budowaniu okna w window builiderze i dotyczy elementów okna i ich ustawień
+	{   
 		getContentPane().setFont(new Font("Konfuciuz Fat", Font.BOLD, 12));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Dr Payne's Hi Lo  Guessing Game");
@@ -58,7 +69,7 @@ public class GuessingGame extends JFrame {
 
 		txtGuess = new JTextField();
 		txtGuess.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) { //po wpisaniu w pole tekstowe i przycisnięciu na klawiaturze ENTER przywołana jest metoda sprawdzajaca warunki jak to co wpisane ma się do randoma
 				checkGuess();
 			}
 		});
@@ -69,7 +80,7 @@ public class GuessingGame extends JFrame {
 
 		JButton btnGuess = new JButton("Guess!");
 		btnGuess.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) { //przycisniecie buttona guess wywołuje metode sprawdzania poprawnosci odowiedzi (warunki)
 				checkGuess();
 			}
 		});
@@ -84,9 +95,12 @@ public class GuessingGame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		GuessingGame theGame = new GuessingGame();
-		theGame.newGame();
-		theGame.setSize(new Dimension(450, 300));
-		theGame.setVisible(true);
+		GuessingGame theGame = new GuessingGame(); //tworzymy obiekt gra - budujemy okno zgodnie z "projektem" GuessingGame, okno jeszcze nie wdoczne
+		theGame.newGame(); //rozpoczynamy gre z nowa liczba
+		theGame.setSize(new Dimension(450, 300)); //okno o wymiarach...to tez instrukcie
+		theGame.setVisible(true);    //staje sie widoczne
 	}
 }
+
+//metoda guessing game- "layout"- odwołuje się do metody checkGuess, nic nie jest pominięte
+
