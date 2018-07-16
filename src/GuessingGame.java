@@ -124,11 +124,11 @@ public GuessingGame() // to w większości genruje sie samo po budowaniu okna w 
 public static void main(String[] args) {
 	GuessingGame theGame = new GuessingGame(); //tworzymy obiekt gra - budujemy okno zgodnie z "projektem" GuessingGame, okno jeszcze nie wdoczne
 	theGame.newGame(); //rozpoczynamy gre z nowa liczba
-	theGame.setSize(new Dimension(450, 300)); //okno o wymiarach...to tez instrukcie
+	theGame.setSize(new Dimension(450, 300)); //okno o wymiarach...
 	theGame.setVisible(true);    //staje sie widoczne
 	
 }
 }
 
 //metoda guessing game- "layout"- odwołuje się do metody checkGuess, nic nie jest pominięte
-
+//zmiana pod brach
